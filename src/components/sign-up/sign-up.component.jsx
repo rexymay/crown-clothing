@@ -20,7 +20,7 @@ class SignUp extends React.Component{
         event.preventDefault();
     
         const { displayName, email, password, confirmPassword } = this.state;
-        if(password != confirmPassword){
+        if(password !== confirmPassword){
             alert("Passwords don't match");
             return;
         }
@@ -47,7 +47,6 @@ class SignUp extends React.Component{
     }
 
     render(){
-        const { displayName, email, password, confirmPassword } = this.state;
         return(
             <div className="sign-up">
                 <h2 className="title">I do not have an account</h2>
