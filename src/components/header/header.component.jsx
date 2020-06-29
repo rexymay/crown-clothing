@@ -5,6 +5,7 @@ import './header.styles.scss';
 import { auth } from '../../firebase/firebase.util';
 
 const signOut = () => {
+    console.log('Logging out...');
     auth.signOut();
 }
 
@@ -26,7 +27,7 @@ const Header = ({ currentUser }) => (
                     SIGN OUT
                 </div>
                 :
-                <Link className="option" to="/sign-in">
+                <Link className="option" to="/sign-inup">
                 SIGN IN
             </Link>
             }

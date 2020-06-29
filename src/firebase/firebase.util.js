@@ -13,6 +13,40 @@ const config = {
     measurementId: "G-12SVDRSZS1"
 };
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if(!userAuth) {
+        console.log('ERROR: Empty userAuth Object', userAuth);
+        return;
+    }else{
+        console.log('INFO: userAuth found', userAuth);
+    }
+
+    const userRef  = firestore.doc(`users/${userAuth.uid}`);
+    const snapShot = await userRef.get();
+
+    if(!snapShot.exists){
+        console.log('INFO: User does not exist, now creating...');
+        const { displayName, email } = userAuth;
+        const createdAt = new Date();
+        try{
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            });
+        }
+        catch(error){
+            console.log('Error creating user', error.message);
+        }
+    }else{
+        console.log('INFO: User snapShot already exist', snapShot);
+    }
+
+    return userRef;
+}
+
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
